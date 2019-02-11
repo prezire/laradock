@@ -906,14 +906,14 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ;fi
 
 ###########################################################################
-# Custom develop tools:
+# Process Control Systems:
 ###########################################################################
 
 USER root
 
-ARG WORKSPACE_INSTALL_DAEMONS=true
+ARG WORKSPACE_INSTALL_PROCESS_CONTROL_SYSTEMS=true
 
-RUN if [ ${WORKSPACE_INSTALL_DAEMONS} = true ]; then \
+RUN if [ ${WORKSPACE_INSTALL_PROCESS_CONTROL_SYSTEMS} = true ]; then \
     apt-get update -yqq && \
     apt-get -y install supervisor && \
     apt-get -y install monit \
