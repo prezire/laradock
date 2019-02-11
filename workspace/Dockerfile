@@ -906,6 +906,20 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ;fi
 
 ###########################################################################
+# Daemons:
+###########################################################################
+
+USER root
+
+ARG WORKSPACE_INSTALL_DAEMONS=true
+
+RUN if [ ${WORKSPACE_INSTALL_DAEMONS} = true ]; then \
+    apt-get update -yqq && \
+    apt-get -y install supervisor && \
+    apt-get -y install monit \
+;fi
+
+###########################################################################
 # Check PHP version:
 ###########################################################################
 
