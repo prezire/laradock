@@ -916,7 +916,7 @@ ARG WORKSPACE_INSTALL_PROCESS_CONTROL_SYSTEMS=true
 RUN if [ ${WORKSPACE_INSTALL_PROCESS_CONTROL_SYSTEMS} = true ]; then \
     apt-get update -yqq && \
     apt-get -y install supervisor && \
-    apt-get -y install monit \
+    apt-get -y install monit && \
     apt-get -y install htop \
 ;fi
 
