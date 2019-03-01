@@ -39,6 +39,18 @@ RUN apt-get update -yqq && \
 # base image (https://github.com/Laradock/php-fpm).
 #
 
+#For apps that need older encryption mechanisms.
+ARG PHP_FPM_INSTALL_MCRYPT=false
+
+RUN if [ ${PHP_FPM_INSTALL_MCRYPT} = true ]; then \
+  #https://github.com/docker-library/php/issues/541
+  #https://stackoverflow.com/questions/41031076/php7-1-and-laravel-5-3-function-mcrypt-get-iv-size-is-deprecated
+  apt-get update -y && \
+    apt-get install -y libmcrypt-dev && \
+    pecl install mcrypt-1.0.1 && \
+    docker-php-ext-enable mcrypt \
+;fi
+
 #
 #--------------------------------------------------------------------------
 # Optional Software's Installation
