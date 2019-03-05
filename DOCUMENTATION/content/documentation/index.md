@@ -709,6 +709,44 @@ composer require predis/predis:^1.0
 
 
 <br>
+<a name="Use-Redis-Cluster"></a>
+## Use Redis Cluster
+
+1 - First make sure you run the Redis-Cluster Container (`redis-cluster`) with the `docker-compose up` command.
+
+```bash
+docker-compose up -d redis-cluster
+```
+
+2 - Open your Laravel's `config/database.php` and set the redis cluster configuration. Below is example configuration with phpredis.
+
+Read the [Laravel official documentation](https://laravel.com/docs/5.7/redis#configuration) for more details.
+
+```php
+'redis' => [
+    'client' => 'phpredis',
+    'options' => [
+        'cluster' => 'redis',
+    ],
+    'clusters' => [
+        'default' => [
+            [
+                'host' => 'redis-cluster',
+                'password' => null,
+                'port' => 7000,
+                'database' => 0,
+            ],
+        ],
+    ],
+],
+```
+
+
+
+
+
+
+<br>
 <a name="Use-Mongo"></a>
 ## Use Mongo
 
@@ -1300,6 +1338,19 @@ We also recommend [setting the timezone in Laravel](http://www.camroncade.com/ma
 
 
 
+<br>
+<a name="Add locales to PHP-FPM"></a>
+## Add locales to PHP-FPM
+
+To add locales to the container:
+
+1 - Open the `.env` file and set `PHP_FPM_INSTALL_ADDITIONAL_LOCALES` to `true`.
+
+2 - Add locale codes to `PHP_FPM_ADDITIONAL_LOCALES`.
+
+3 - Re-build your PHP-FPM Container `docker-compose build php-fpm`.
+
+4 - Check enabled locales with `docker-compose exec php-fpm locale -a`
 
 
 
@@ -1493,6 +1544,23 @@ Enabling Global Composer Install during the build for the container allows you t
 
 
 <br>
+<a name="Magento-2-authentication-credentials"></a>
+## Magento 2 authentication credential (composer install)
+
+1 - Open the `.env` file
+
+2 - Search for the `WORKSPACE_COMPOSER_AUTH` argument under the Workspace Container and set it to `true`
+
+3 - Now add your credentials to `workspace/auth.json`
+
+4 - Re-build the Workspace Container `docker-compose build workspace`
+
+
+
+
+
+
+<br>
 <a name="Install-Prestissimo"></a>
 ## Install Prestissimo
 
@@ -1593,6 +1661,22 @@ To install NPM VUE CLI in the Workspace container
 1 - Open the `.env` file
 
 2 - Search for the `WORKSPACE_INSTALL_NPM_VUE_CLI` argument under the Workspace Container and set it to `true`
+
+3 - Re-build the container `docker-compose build workspace`
+
+
+
+
+
+<br>
+<a name="Install-NPM-ANGULAR-CLI"></a>
+## Install NPM ANGULAR CLI
+
+To install NPM ANGULAR CLI in the Workspace container
+
+1 - Open the `.env` file
+
+2 - Search for the `WORKSPACE_INSTALL_NPM_ANGULAR_CLI` argument under the Workspace Container and set it to `true`
 
 3 - Re-build the container `docker-compose build workspace`
 
